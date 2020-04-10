@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import './Header.css';
+import {
+  NavLink,
+  Link
+} from "react-router-dom";
 
 class Header extends Component {
   constructor() {
@@ -13,18 +16,19 @@ class Header extends Component {
         <header className="site-header">
     <nav className="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
       <div className="container">
-        <a className="navbar-brand mr-4" href="#">Dashboard</a>
+        <Link to="/" className="navbar-brand mr-4">Dashboard</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
           aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarToggle">
           <div className="navbar-nav mr-auto">
-            <a className="nav-item nav-link" href="#">Home</a>
-
+            <NavLink to="/CSVUpload" className="nav-item nav-link" activeClassName="hurray">
+              Upload CSV
+            </NavLink>
 
           </div>
-
+          
           <div className="navbar-nav">
 
             <a className="nav-item nav-link" href="#">Logout</a>
