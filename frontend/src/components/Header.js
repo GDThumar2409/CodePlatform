@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
@@ -28,7 +28,7 @@ class Header extends Component {
             </NavLink>
 
           </div>
-          
+
           <div className="navbar-nav">
 
             <a className="nav-item nav-link" href="#">Logout</a>

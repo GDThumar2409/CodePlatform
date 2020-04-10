@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
-  
+
 
   render() {
     var imgstyle={
@@ -20,7 +20,7 @@ class Home extends Component {
       <main role="main" className="container">
     <div className="row">
       <div className="col-md-8">
-        <div> 
+        <div>
         <h2>Dsa</h2>
         </div>
       <br/>
@@ -30,7 +30,7 @@ class Home extends Component {
               <img style={imgstyle} className="thumbnail account-img" src="https://stackblitz.com/files/react-scepxt/github/GDThumar2409/react-BigO/master/download.png" />
               <a className="article-title" href="#">Lab 1</a>
               <hr />
-            
+
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@ class Home extends Component {
               <li className="nav-item"><a href="#">Dsa</a></li>
               <li className="nav-item"><a href="#">Java-Tech.</a></li>
               <li className="nav-item"><a href="#">Software-project</a></li>
-              
+
             </ul>
           </div>
 

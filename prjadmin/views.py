@@ -32,9 +32,12 @@ def upload(request):
         except:
             return HttpResponse("Error")
 
+@csrf_exempt
 def uploadview(request):
     if request.method == "POST":
-        csv_file = request.FILES["csv_file"]
+        """csv_file = request.FILES["csv_file"]
+        file_data = csv_file.read().decode("utf-8")"""
+        csv_file = request.FILES.getlist('files')[0]
         file_data = csv_file.read().decode("utf-8")
         lines = file_data.split("\n")
         print(lines)
