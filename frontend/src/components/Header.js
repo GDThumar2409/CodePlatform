@@ -31,7 +31,9 @@ class Header extends Component {
 
           <div className="navbar-nav">
 
-            <a className="nav-item nav-link" href="#">Logout</a>
+            <NavLink to="/login" className="nav-item nav-link" activeClassName="hurray">
+              Login
+            </NavLink>
 
           </div>
         </div>

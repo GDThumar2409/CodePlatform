@@ -26,21 +26,39 @@ SECRET_KEY = 'gku9msdrb&4f^h0nk799-2(p9z*j2#&c=7is-f*z+j*-f)nlwt'
 DEBUG = True
 
 ALLOWED_HOSTS = ['gunjan.pythonanywhere.com']
-
+CORS_ORIGIN_ALLOW_ALL = CORS_ORIGIN_WHITELIST = [
+    'google.com',
+    'gunjan.pythonanywhere.com',
+    'react-scepxt.stackblitz.io',
+]
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth.registration',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
     'prjadmin.apps.PrjadminConfig',
     'frontend',
 ]
+
+AUTHENTICATION_BACKENDS = (
+"django.contrib.auth.backends.ModelBackend",
+"allauth.account.auth_backends.AuthenticationBackend"
+)
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'tutorial.urls'
@@ -125,3 +145,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'gdthumar@gmail.com'
+EMAIL_HOST_PASSWORD = 'gdthumar2409'

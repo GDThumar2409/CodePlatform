@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
-from prjadmin.models import User
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.contrib.auth.models import User
 from prjadmin.serializers  import UserSerializer
 from django.core import serializers
 import requests,json
@@ -32,6 +34,28 @@ def upload(request):
         except:
             return HttpResponse("Error")
 
+
+class AddUserView(APIView):
+    def get(self, request):
+        snippets = User.objects.all()
+        serializer = UserSerializer(snippets, many=True)
+        return Response(serializer.data)
+    def post(self, request):
+        print(" in api call")
+        try:
+            data = JSONParser().parse(request)
+            print(data)
+            serializer = Serializer(data=data)
+            print(serializer.is_valid())
+            if serializer.is_valid():
+                serializer.save()
+                print("saved")
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
+        except:
+            return HttpResponse("Error")
+
 @csrf_exempt
 def uploadview(request):
     if request.method == "POST":
@@ -45,22 +69,27 @@ def uploadview(request):
             fields = line.split(';')
             print(fields)
             data = {}
-            data["user_id"] = int(fields[0])
+            data["username"] = fields[0]
             data["first_name"] = fields[1]
             data["last_name"] = fields[2]
             data["email"] = fields[3]
-            data["role"]=fields[4]
-            usr= User(user_id=fields[0],first_name=fields[1],last_name=fields[2],email=fields[3],role=fields[4])
+            data["is_staff"] = fields[4]
+            data["password"] = fields[5]
+            usr= User.objects.create_user(username=fields[0],email=fields[3],password=fields[5])
+
+            usr.first_name=fields[1]
+            usr.last_name=fields[2]
+            usr.is_staff=fields[4]
             usr.save()
-            """url = 'http://gunjan.pythonanywhere.com/siteadmin/upload/'
+            """url = 'http://gunjan.pythonanywhere.com/rest-auth/registeration/'
             data=json.dumps(data)
-            data1=serializers.serialize('json', usr)
-            print(data1)
+            #data1=serializers.serialize('json', usr)
+            #print(data1)
             print("waiting for response")
-            x = requests.post(url, json = data1)
+            x = requests.post(url, json = data)
             #print("waiting for response")
             print(x.status_code)
-            if(x.status_code != 201 or x.text == "Error"):
+            if(x.status_code > 300 or x.text == "Error"):
                 return HttpResponse("ERROR")"""
         return JsonResponse({"success":"yes"}, status=200)
     else:

@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from prjadmin.models import User
+from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_id', 'first_name', 'last_name', 'email', 'role']
+        fields = ['username', 'password', 'email', 'first_name', 'last_name','is_staff']
